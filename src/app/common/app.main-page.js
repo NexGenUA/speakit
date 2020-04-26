@@ -32,6 +32,7 @@ class AppMainPage extends Component {
       'click #games': 'gamesStats',
       'click #stats-close': 'closeGameStats',
       'click #stats-container': 'repeatGame',
+      'click #win-close': 'winClose',
     };
   }
 
@@ -192,9 +193,17 @@ class AppMainPage extends Component {
       record.classList.remove('record-on');
       record.classList.add('record-wait');
       if (this.correct.length === 10) {
-        console.log('hello'); // TODO
+        const winPage = document.getElementById('win-page');
+        winPage.classList.remove('close');
+        this.pauseRecord();
       }
     });
+  }
+
+  winClose() {
+    const winPage = document.getElementById('win-page');
+    winPage.classList.add('close');
+    this.newGame();
   }
 
   async wordSound({ target }) {
@@ -366,6 +375,7 @@ class AppMainPage extends Component {
   startGame() {
     const startPage = document.getElementById('start-page');
     startPage.classList.add('close');
+    document.body.style.overflow = 'visible';
     setTimeout(() => {
       startPage.style.display = 'none';
       startPage.classList.remove('close');
@@ -476,6 +486,8 @@ class AppMainPage extends Component {
   newGame() {
     const resultsPage = document.getElementById('results-page');
     resultsPage.classList.add('close');
+    const cardImage = document.getElementById('card-img');
+    cardImage.style.backgroundImage = `url(${this.startImageUrl})`;
 
     document.getElementById('speech').value = 'start speak';
     this.changeExampleConversationIsContentStyles();
@@ -514,13 +526,12 @@ class AppMainPage extends Component {
         <span data-idx="${i}"><b>${new Date(game[10]).toLocaleString('ru')}:</b> <i>${words}</i> - <b>(${win}/10)</b></span>
       `);
     });
-    console.log(this.gamesSlice);
     gamesStats.classList.remove('close');
   }
 
   repeatGame({ target }) {
     const span = target.closest('span');
-    if (!span.dataset.idx) return;
+    if (!span || !span.dataset.idx) return;
     this.gamesSlice = this.gamesSlice[span.dataset.idx].slice(0, -1);
     this.newGame();
     const gamesStats = document.getElementById('games-stats');
@@ -535,6 +546,14 @@ class AppMainPage extends Component {
   }
 
   async onLoad() {
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 150);
+    });
+    const cardImage = document.getElementById('card-img');
+    this.startImageUrl = getComputedStyle(cardImage).backgroundImage.slice(5, -2);
+    this.startImageUrl = this.startImageUrl.replace(/^http:\/\/[^/]+\//g, '');
     await this.setWordsAndImages();
   }
 }
