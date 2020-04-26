@@ -1,0 +1,32 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": [
+        "airbnb-base"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "rules": {
+        "import/prefer-default-export": "off",
+        "no-param-reassign": [2, {"props": false}],
+        "prefer-destructuring": ["error", {"object": true, "array": false}],
+        "no-unused-expressions": [2, { "allowTernary": true }],
+        "no-plusplus": "off",
+        "default-case": "off",
+        "class-methods-use-this": "off",
+        "no-multi-assign": "off",
+        "global-require": "off",
+        "guard-for-in": "off",
+        "no-restricted-syntax": ["off", "FunctionExpression", "WithStatement", "BinaryExpression[operator='in']"],
+        "arrow-parens": ["off", "always"],
+        "no-mixed-operators": "off"
+    }
+}

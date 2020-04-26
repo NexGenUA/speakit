@@ -1,0 +1,10 @@
+* {
+  font-family: Roboto, Oxygen-Sans, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+@import '~normalize-scss/sass/normalize/import-now';
+@import 'main';
+@import '404';
+@import 'start';
