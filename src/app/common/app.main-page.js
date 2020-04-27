@@ -33,6 +33,7 @@ class AppMainPage extends Component {
       'click #stats-close': 'closeGameStats',
       'click #stats-container': 'repeatGame',
       'click #win-close': 'winClose',
+      'input #level-of-difficulty': 'switchGameDifficulty',
     };
   }
 
@@ -194,6 +195,8 @@ class AppMainPage extends Component {
       record.classList.add('record-wait');
       if (this.correct.length === 10) {
         const winPage = document.getElementById('win-page');
+        window.scrollTo(0, 0);
+        document.body.style.overflow = 'hidden';
         winPage.classList.remove('close');
         this.pauseRecord();
       }
@@ -201,6 +204,7 @@ class AppMainPage extends Component {
   }
 
   winClose() {
+    document.body.style.overflow = 'auto';
     const winPage = document.getElementById('win-page');
     winPage.classList.add('close');
     this.newGame();
@@ -421,6 +425,8 @@ class AppMainPage extends Component {
 
   async showResults() {
     this.pauseRecord();
+    window.scrollTo(0, 0);
+    document.body.style.overflow = 'hidden';
 
     const dontKnowCount = document.getElementById('dont-know-count');
     const iKnowCount = document.getElementById('i-know-count');
@@ -471,6 +477,7 @@ class AppMainPage extends Component {
   }
 
   resultClose() {
+    document.body.style.overflow = 'auto';
     this.resumePause();
     const resultsPage = document.getElementById('results-page');
     resultsPage.classList.add('close');
@@ -510,6 +517,8 @@ class AppMainPage extends Component {
   }
 
   gamesStats() {
+    window.scrollTo(0, 0);
+    document.body.style.overflow = 'hidden';
     this.pauseRecord();
     const gamesStats = document.getElementById('games-stats');
     const statsContainer = document.getElementById('stats-container');
@@ -539,17 +548,23 @@ class AppMainPage extends Component {
   }
 
   closeGameStats() {
+    document.body.style.overflow = 'auto';
     this.resumePause();
     const gamesStats = document.getElementById('games-stats');
     gamesStats.classList.add('close');
     this.gamesSlice = null;
   }
 
+  switchGameDifficulty() {
+    this.newGame();
+  }
+
   async onLoad() {
     window.addEventListener('load', () => {
       setTimeout(() => {
         window.scrollTo(0, 0);
-      }, 150);
+        document.body.style.opacity = '1';
+      }, 250);
     });
     const cardImage = document.getElementById('card-img');
     this.startImageUrl = getComputedStyle(cardImage).backgroundImage.slice(5, -2);
