@@ -194,11 +194,7 @@ class AppMainPage extends Component {
       record.classList.remove('record-on');
       record.classList.add('record-wait');
       if (this.correct.length === 10) {
-        const winPage = document.getElementById('win-page');
-        window.scrollTo(0, 0);
-        document.body.style.overflow = 'hidden';
-        winPage.classList.remove('close');
-        this.pauseRecord();
+        this.showResults();
       }
     });
   }
