@@ -140,9 +140,9 @@ body {
     }
   }
 
-  &.is-playing {
+  &.record.is-playing {
 
-    & input, span {
+    & span {
       cursor: wait;
     }
 

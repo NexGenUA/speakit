@@ -157,6 +157,7 @@ class AppMainPage extends Component {
                   el.done = 'ok';
                 }
               });
+              this.updateLocalStorage(currentGame);
               this.setLocalStorageCurrentGame(currentGame);
               cardImage.style.backgroundImage = `url(${input.parentNode.dataset.image})`;
               input.parentNode.classList.add('correct');
@@ -389,6 +390,13 @@ class AppMainPage extends Component {
       collect.push(...JSON.parse(json));
     }
     collect.push(array);
+    localStorage.setItem('games', JSON.stringify(collect));
+  }
+
+  updateLocalStorage(game) {
+    const json = localStorage.getItem('games');
+    const collect = JSON.parse(json);
+    collect.splice(-1, 1, game);
     localStorage.setItem('games', JSON.stringify(collect));
   }
 
