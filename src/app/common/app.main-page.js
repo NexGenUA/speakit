@@ -121,7 +121,7 @@ class AppMainPage extends Component {
       [...e.results].forEach(el => {
         if (el.isFinal) {
           [...el].forEach(key => {
-            result[key.transcript.toLowerCase()] = key.confidence;
+            result[key.transcript.toLowerCase().split(' ')] = key.confidence;
           });
         }
       });
@@ -328,7 +328,7 @@ class AppMainPage extends Component {
     if (radioButtons) pageCount = [...radioButtons].find(node => node.checked).value;
 
     const groupCount = Math.floor(Math.random() * 29);
-    const response = await fetch(`https://afternoon-falls-25894.herokuapp.com/words?page=${groupCount}&group=${pageCount}`);
+    const response = await fetch(`https://api-rslang.herokuapp.com/words?page=${groupCount}&group=${pageCount}`);
     let json = await response.json();
 
     json.sort(() => Math.random() - 0.5);
