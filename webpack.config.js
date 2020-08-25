@@ -14,7 +14,7 @@ module.exports = {
 
   devServer: {
     contentBase: path.resolve(__dirname, 'public'),
-    port: 4200,
+    port: 4000,
   },
 
   plugins: [
@@ -27,8 +27,7 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: './src/assets/fav', to: './' },
-        { from: './src/data', to: './files' },
+        { from: './src/assets/fav', to: './' }
       ]
     }),
   ],
